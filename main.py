@@ -14,6 +14,7 @@ st.write("""This is our first web app.
 Enjoy it!""")
 
 st.write(df)
+st.line_chart(df)
 
 
 
