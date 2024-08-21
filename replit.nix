@@ -1,5 +1,10 @@
 {pkgs}: {
   deps = [
+    pkgs.ffmpeg-full
+    pkgs.wget
+    pkgs.libGLU
+    pkgs.libGL
+    pkgs.glibcLocales
     pkgs.streamlit
     pkgs.jre
     pkgs.xcbuild

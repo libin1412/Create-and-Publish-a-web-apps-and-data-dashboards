@@ -1,23 +1,47 @@
-import streamlit as st
-import pandas 
+import cv2
 
-data = {
-  'Series_1':[1,3,4,5,7],
-  'Series_2':[10,30,40,100,250]
-}
+video = cv2.VideoCapture("video.mp4")
+success, frame = video.read()
 
-df = pandas.DataFrame(data)
+height = frame.shape[0]
+width = frame.shape[1]
 
-st.title("Our 1st Streamlit App")
-st.subheader("Introducing Streamlit in Automate Everything with Python")
-st.write("""This is our first web app.
-Enjoy it!""")
+face_cascade = cv2.CascadeClassifier('faces.xml')
+output = cv2.VideoWriter('output.avi', 
+cv2.VideoWriter_fourcc(*'DIVX'), 30, (width, height))
 
-st.write(df)
-st.line_chart(df)
+count = 0
 
-myslider = st.slider('Celsius')
-st.write(myslider, 'in Fahrenheit is',myslider * 9/5 + 32)
+#This while statement will scan the faces
+while success:
+  faces = face_cascade.detectMultiScale(frame, 1.1, 4)
+  for (x, y, w, h) in faces:
+    cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 255, 255), 4)
+  output.write(frame)
+  success, frame = video.read()
+  count += 1
+  print(count)
+
+output.release()
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
 
 
 
